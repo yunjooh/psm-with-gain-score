@@ -1,6 +1,6 @@
 # PSM With Gain Score
 
-This repository contains the R scripts used to study how self‑reported EdTech use relates to middle‑school achievement gains (Korean, Math, English). The workflow combines propensity score matching (PSM) with gain‑score difference‑in‑differences (DID) models and supporting assumption checks.
+This repository contains the R scripts used to study how self‑reported EdTech use relates to middle‑school achievement gains (Korean, Math, English). The workflow combines propensity score matching (PSM) with gain‑score analysis models and supporting assumption checks.
 
 ## Repository Structure
 
