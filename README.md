@@ -8,14 +8,14 @@ This repository contains the R scripts used to study how self‑reported EdTech 
 | --- | --- |
 | `dt_cleaning.R` | Builds analysis-ready student × school data sets (`mk_final_df`, `mm_final_df`, `me_final_df`) by merging teacher, student, parent, and school panels, deriving covariates, and exporting `m_*_final_2.csv`. |
 | `dt_analysis.R` | Performs the main PSM + DID workflow for each subject: balance diagnostics, logit score estimation, nearest-neighbor matching (caliper 0.25), ATT estimation on matched samples, and result storage (`result_k`, `result_m`, `result_e`). |
-| `assumption_check.R` | Tests the common-trends assumption by adding Grade 1 outcomes, re-estimating pre-trends, and bootstrapping coefficient ratios for each subject. Requires `matched_df` from `dt_analysis.R`. |
+| `assumption_check.R` | Tests the common-trends assumption by adding Wave 1 outcomes, and bootstrapping coefficient ratios for each subject. Requires `matched_df` from `dt_analysis.R`. |
 | `dt_sensitivity.R` | Rebuilds the merged data sets with alternative treatment coding/NA handling, exporting `m_*_final_3.csv` for robustness work. |
 | `analysis_sensitivity.R` | Re-runs the full PSM + DID pipeline on the sensitivity data (`*_final_df_345`) and stores the robustness ATT objects (`result_sense_k`, etc.). |
 
 ## Prerequisites
 
 1. **Software**: R ≥ 4.1.
-2. **Data**: Load the raw SELS 2020 teacher (`m_t_3`), student (`m_s_1`, `m_s_2`, `m_s_3`), parent (`m_p_2`), and school (`m_sc_3`) frames into the R session before sourcing the scripts. Paths for `.csv` exports inside the scripts are currently commented for Google Drive but can point anywhere.
+2. **Data**: Load the raw SELS 2020 teacher (`m_t_3`), student (`m_s_1`, `m_s_2`, `m_s_3`), parent (`m_p_2`), and school (`m_sc_3`) frames into the R session before sourcing the scripts. Paths for `.csv` exports inside the scripts are currently commented for Google Drive but can point anywhere. The data from the Seoul Education Longitudinal Study are available from the institution upon reasonable request via email (sels@sen.go.kr).
 3. **Packages**: Install once with
 
    ```r
@@ -43,7 +43,7 @@ This repository contains the R scripts used to study how self‑reported EdTech 
 
 3. **Assumption diagnostics**  
    - Keep the `matched_df` object from the main analysis in memory.  
-   - Load earlier-wave achievement (`m_s_1_subset`) and run `source("assumption_check.R")`. The script regresses Grade 2 and Grade 3 scores on Grade 1 scores plus treatment, then bootstraps the ratio of pre/post slope coefficients to ensure similar pre-trends between treated and control groups.
+   - Load earlier-wave achievement (`m_s_1_subset`) and run `source("assumption_check.R")`. The script regresses Wave 2 and Wave 3 scores on Wave 1 scores plus treatment, then bootstraps the ratio of pre/post slope coefficients to ensure similar trends between Wave 2 and Wave 3 achievements.
 
 4. **Sensitivity analysis**  
    - `source("dt_sensitivity.R")` to rebuild the merged files with alternative treatment coding (e.g., explicit handling of neutral EdTech responses) and re-export them as `*_final_df_345`.  
